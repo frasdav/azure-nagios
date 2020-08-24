@@ -2,4 +2,4 @@
   hosts:
     - nagios
   roles:
-    - nagios
+    - azure-nagios
