@@ -1,0 +1,13 @@
+- name: Run Nagios
+  systemd:
+    state: started
+    name: nagios
+    enabled: yes
+  become: yes
+
+- name: Run Apache
+  systemd:
+    state: started
+    name: httpd
+    enabled: yes
+  become: yes

@@ -1,0 +1,11 @@
+- name: Restart Apache
+  systemd:
+    name: httpd
+    state: restarted
+  become: yes
+
+- name: Reload Nagios
+  systemd:
+    name: nagios
+    state: reloaded
+  become: yes

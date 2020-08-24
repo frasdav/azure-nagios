@@ -1,0 +1,5 @@
+- name: Install passlib
+  pip:
+    state: present
+    name: passlib
+  become: yes

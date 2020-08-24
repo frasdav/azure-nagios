@@ -1,0 +1,16 @@
+- name: Add Microsoft GPG key
+  rpm_key:
+    state: present
+    key: https://packages.microsoft.com/keys/microsoft.asc
+  become: yes
+
+- name: Add Azure CLI repository
+  yum_repository:
+    name: AzureCLI
+    description: Azure CLI repository
+    file: azure-cli.repo
+    gpgcheck: yes
+    repo_gpgcheck: yes
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    baseurl: https://packages.microsoft.com/yumrepos/azure-cli
+  become: yes

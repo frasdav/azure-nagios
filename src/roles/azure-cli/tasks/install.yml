@@ -1,0 +1,5 @@
+- name: Install
+  yum:
+    state: present
+    name: azure-cli-{{ azure_cli_version }}
+  become: yes
