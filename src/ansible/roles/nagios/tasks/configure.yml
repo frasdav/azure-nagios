@@ -30,6 +30,7 @@
   with_items:
     - /etc/nagios/cgi.cfg
     - /etc/nagios/nagios.cfg
+    - /etc/nagios/conf.d/common.cfg
     - /etc/nagios/objects/commands.cfg
     - /etc/nagios/objects/contacts.cfg
     - /etc/nagios/objects/localhost.cfg
