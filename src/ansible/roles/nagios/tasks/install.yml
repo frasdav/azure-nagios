@@ -1,0 +1,20 @@
+- name: Install Nagios
+  dnf:
+    state: present
+    name: nagios-{{ nagios_version }}
+  become: yes
+
+- name: Install Nagios plugins
+  dnf:
+    state: present
+    name: nagios-plugins-all-{{ nagios_plugins_version }}
+  become: yes
+
+- name: Create conf.d directory
+  file:
+    state: directory
+    path: /etc/nagios/conf.d
+    owner: root
+    group: nagios
+    mode: "0750"
+  become: yes

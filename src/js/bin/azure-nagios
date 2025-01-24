@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+
+/* eslint-disable-next-line no-unused-expressions */
+require('yargs')
+  .commandDir('../src/cmds')
+  .showHelpOnFail(true)
+  .demandCommand(1, '')
+  .help()
+  .fail((_, err, yargs) => {
+    if (err && err.message) {
+      console.log(err.message); // eslint-disable-line no-console
+      if (err.message.startsWith('WARNING -')) {
+        process.exit(1);
+      }
+      if (err.message.startsWith('CRITICAL -')) {
+        process.exit(2);
+      }
+      if (err.message.startsWith('UNKNOWN -')) {
+        process.exit(3);
+      }
+    } else {
+      yargs.showHelp();
+    }
+    process.exit(2);
+  })
+  .argv;

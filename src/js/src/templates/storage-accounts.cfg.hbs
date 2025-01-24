@@ -1,0 +1,77 @@
+{{#each .}}
+define host {
+    host_name               {{.}}
+    address                 127.0.0.1
+    max_check_attempts      5
+    check_period            24x7
+    check_command           check-resource-exists
+    check_interval          1440
+    contact_groups          admins
+    notification_interval   60
+    notification_period     24x7
+}
+
+{{/each}}
+
+define hostgroup {
+    hostgroup_name          storage-accounts
+    alias                   Storage Accounts
+    members                 {{#each .}}{{.}}{{#unless @last}},{{/unless}}{{/each}}
+}
+
+define service {
+    hostgroup_name          storage-accounts
+    service_description     In allowed location
+    max_check_attempts      3
+    check_period            24x7
+    check_command           check-resource!in-allowed-location
+    check_interval          15
+    contact_groups          admins
+    retry_interval          5
+    notification_interval   30
+    notification_period     24x7
+}
+
+define servicegroup {
+    servicegroup_name       storage-account-in-allowed-location
+    alias                   Storage Account in allowed location
+    members                 {{#each .}}{{.}},In allowed location{{#unless @last}},{{/unless}}{{/each}}
+}
+
+define service {
+    hostgroup_name          storage-accounts
+    service_description     Firewall enabled
+    max_check_attempts      3
+    check_period            24x7
+    check_command           check-resource!firewall-enabled
+    check_interval          15
+    contact_groups          admins
+    retry_interval          5
+    notification_interval   30
+    notification_period     24x7
+}
+
+define servicegroup {
+    servicegroup_name       storage-account-firewall-enabled
+    alias                   Storage Account firewall enabled
+    members                 {{#each .}}{{.}},Firewall enabled{{#unless @last}},{{/unless}}{{/each}}
+}
+
+define service {
+    hostgroup_name          storage-accounts
+    service_description     No unknown IPs
+    max_check_attempts      3
+    check_period            24x7
+    check_command           check-resource!no-unknown-ips
+    check_interval          15
+    contact_groups          admins
+    retry_interval          5
+    notification_interval   30
+    notification_period     24x7
+}
+
+define servicegroup {
+    servicegroup_name       storage-account-no-unknown-ips
+    alias                   Storage Account no unknown IPs
+    members                 {{#each .}}{{.}},No unknown IPs{{#unless @last}},{{/unless}}{{/each}}
+}

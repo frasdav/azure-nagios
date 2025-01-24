@@ -1,0 +1,5 @@
+- name: Install packages
+  npm:
+    path: /opt/pas/azure-nagios
+    production: yes
+  become: yes

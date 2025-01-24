@@ -1,0 +1,47 @@
+- name: Allow Http traffic
+  firewalld:
+    state: enabled
+    service: http
+    permanent: yes
+  become: yes
+
+- name: Disable SELinux
+  selinux:
+    state: disabled
+  notify: Restart Apache
+  become: yes
+
+- name: Create admin account
+  htpasswd:
+    path: /etc/nagios/passwd
+    name: nagiosadmin
+    password: nagios
+  become: yes
+
+- name: Copy config files
+  copy:
+    src: "{{ role_path }}/files{{ item }}"
+    dest: "{{ item }}"
+    owner: root
+    group: root
+    mode: "0664"
+  notify: Reload Nagios
+  become: yes
+  with_items:
+    - /etc/nagios/cgi.cfg
+    - /etc/nagios/nagios.cfg
+    - /etc/nagios/conf.d/common.cfg
+    - /etc/nagios/objects/commands.cfg
+    - /etc/nagios/objects/contacts.cfg
+    - /etc/nagios/objects/localhost.cfg
+    - /etc/nagios/objects/timeperiods.cfg
+
+- name: Copy resource file
+  copy:
+    src: "{{ role_path }}/files/etc/nagios/private/resource.cfg"
+    dest: /etc/nagios/private/resource.cfg
+    owner: root
+    group: nagios
+    mode: "0640"
+  notify: Reload Nagios
+  become: yes

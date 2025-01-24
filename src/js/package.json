@@ -1,0 +1,22 @@
+{
+  "name": "azure-nagios",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test:lint": "eslint './**/*.js'",
+    "test": "npm run test:lint"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "handlebars": "^4.7.6",
+    "shelljs": "^0.8.4",
+    "winston": "^3.3.3",
+    "yargs": "^15.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2"
+  }
+}

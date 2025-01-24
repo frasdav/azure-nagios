@@ -1,0 +1,10 @@
+- name: Install NodeJs
+  dnf:
+    name: nodejs-{{ nodejs_version }}
+  become: yes
+
+- name: Install nvm
+  npm:
+    name: nvm
+    global: yes
+  become: yes

@@ -1,1 +1,1 @@
-# nagios
+# azure-nagios
